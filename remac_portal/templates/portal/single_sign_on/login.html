@@ -1,0 +1,19 @@
+{% extends 'portal/commons/base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Remac</h1>
+    <p>
+        You can log in here!
+    </p>
+    <h3>Login</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Login</button> <br> <br>
+        <a class="btn btn-primary" href="{% url 'user:reset_password' %}">I've forgotten my password</a>
+    </form>
+</div>
+{% endblock %}

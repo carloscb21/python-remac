@@ -1,0 +1,39 @@
+// Setup - add a text input to each footer cell
+$('#{{table_id}} tfoot th').each( function () {
+	var title = $(this).text();
+	if(title != ''){
+		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+	}
+} );
+
+// Restore state
+   var state = table.state.loaded();
+   if ( state ) {
+     table.columns().eq( 0 ).each( function ( colIdx ) {
+       var colSearch = state.columns[colIdx].search;
+       
+       if ( colSearch.search ) {
+         $( 'input', table.column( colIdx ).footer() ).val( colSearch.search );
+       }
+     } );
+     
+     table.draw();
+   }
+
+// Apply the search
+table.columns().every( function () {
+	var that = this;
+
+	$( 'input', this.footer() ).on( 'keyup change', function () {
+		if ( that.search() !== this.value ) {
+			that
+				.search( this.value )
+				.draw();
+		}
+	} );
+} );
+
+$('#{{table_id}} tfoot tr').appendTo('#{{table_id}} thead');
+
+$('#{{table_id}}').show();
+

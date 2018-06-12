@@ -1,0 +1,65 @@
+{% load staticfiles %}
+{% load static %}
+
+{% block header %}
+{#    <nav style="margin-top: 30px;" class="navbar navbar-default">#}
+{#        <div style="margin-top: 30px;" class="container">#}
+{#            <div class="navbar navbar-default">#}
+{#                <a style="width: 25px;" class="navbar-brand" href="/">Remac</a>#}
+{#                <ul class="nav navbar-nav navbar-right">#}
+{#                <li class="dropdown">#}
+{#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>#}
+{#                        {% if user.is_authenticated %}#}
+{#                            <img style="width: 25px;" src="{% if user.userprofile.image %} {{ user.userprofile.image.url }} {% else %} {% static 'images/nobody_profile_image.jpg' %} {% endif %}"> {{ user.first_name }}#}
+{#                        {% else %}#}
+{#                            <img src="{% static 'images/nobody_profile_image.jpg' %}"> {{ user.first_name }}#}
+{#                        {% endif %}#}
+{#                    </a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                        <li><a class="dropdown-item" href="#">Profile</a></li>#}
+{#                        <li><a class="dropdown-item" href="{% url 'user:logout' %}">Logout</a></li>#}
+{#                          <li role="separator" class="divider"></li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </nav>#}
+
+    <nav style="margin-top: 30px;" class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Remac</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'backoffice:list_map' %}">List Building</a></li>
+                <li><a href="{% url 'backoffice:list_map_type' %}">Type Building</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>
+                        {% if user.is_authenticated %}
+                            <img style="width: 25px;" src="{% if user.userprofile.image %} {{ user.userprofile.image.url }} {% else %} {% static 'images/nobody_profile_image.jpg' %} {% endif %}"> {{ user.first_name }}
+                        {% else %}
+                            <img src="{% static 'images/nobody_profile_image.jpg' %}"> {{ user.first_name }}
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'portal:profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'user:logout' %}">Logout</a></li>
+{#                          <li role="separator" class="divider"></li>#}
+                    </ul>
+                </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+{% endblock header %}
+

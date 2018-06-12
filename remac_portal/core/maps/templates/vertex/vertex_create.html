@@ -1,0 +1,67 @@
+{% extends 'backoffice/commons/base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %}Create Vertex{% endblock %}
+
+{% block extra_head %}
+{{ vertex_form.media }}
+{#    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-datetimepicker.min.css' %}"/>#}
+
+    <style>
+    @media (min-width: 1201px){
+        .form-group {
+            display: inline-block !important;
+        }
+
+        .remac_info-1 .form-group {
+            margin-right: 80px;
+            margin-left: 80px;
+            width: 80%;
+            padding-top: 0px;
+            padding-bottom: 0px;
+
+        }
+
+        .remac_legend {
+            margin-right: 80px;
+            margin-left: 80px;
+        }
+
+        .remac_button {
+            width: 70%;
+            align-items: center;
+            margin-left: 80px;
+            margin-right: 80px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-top:80px;">
+    <form role="form" method="POST"  enctype="multipart/form-data" >
+        <legend class="remac_legend">New vertex</legend>
+        {% csrf_token %}
+
+        <div class="remac_info-1">
+            {{ vertex_form.is_origin_point|bootstrap }}<br>
+            {{ vertex_form.nfc_code|bootstrap }}<br>
+            {{ vertex_form.name|bootstrap }}<br>
+            {{ vertex_form.has_nfc|bootstrap }}<br> <br>
+
+            {{ vertex_form.point_x|bootstrap }}<br>
+            {{ vertex_form.point_y|bootstrap }}<br>
+            {{ vertex_form.point_z|bootstrap }}<br>
+
+        </div><br>
+
+        <div class="remac_button form-group">
+                <button type="submit" class="btn btn-success">Save</button>&nbsp;&nbsp;
+                <a href="" class="btn btn-danger" >Cancel</a>&nbsp;
+        </div>
+    </form>
+</div>
+{% endblock %}
+

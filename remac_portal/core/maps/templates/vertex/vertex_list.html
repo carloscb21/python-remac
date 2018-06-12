@@ -1,0 +1,101 @@
+{% extends 'backoffice/commons/base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block title %}Vertex List{% endblock %}
+
+{% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-html5-1.2.4/datatables.min.css"/>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-html5-1.2.4/datatables.min.js"></script>
+
+{% endblock %}
+<style>
+    @media (min-width: 1201px){
+    }
+</style>
+{% block content%}
+
+	<div>
+        <div align="right">
+                <a style=".margin-left: 80%" href="{% url 'backoffice:create_vertex' map_id edge_id %}" class="btn btn-info" style="" id="list_vertex">Create Vertex<br></a>
+        </div>
+		<legend>List Vertex</legend>
+
+        <div>
+            <table id='vertexs'>
+                <thead>
+                    <tr>
+                        <th>Is origin point?</th>
+                        <th>Nfc code</th>
+                        <th>Name</th>
+                        <th>Has nfc?</th>
+                        <th>Point x</th>
+                        <th>Point y</th>
+                        <th>Point z</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vertex in vertexs %}
+                        <tr>
+                            <td>
+                                {{ vertex.is_origin_point }}
+                            </td>
+
+                            <td>
+                                {{ vertex.nfc_code }}
+                            </td>
+
+                            <td>
+                                {{ vertex.name }}<br>
+                            </td>
+
+                            <td>
+                                {{ vertex.has_nfc }}<br>
+                            </td>
+
+                            <td>
+                                {{ vertex.point_x }}<br>
+                            </td>
+
+                            <td>
+                                {{ vertex.point_y }}<br>
+                            </td>
+
+                            <td>
+                                {{ vertex.point_z }}<br>
+                            </td>
+
+                            <td style="width:10%;">
+                                <a href="{% url 'backoffice:edit_vertex' map_id edge_id vertex.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edit</i></a><br>
+                                <a href="{% url 'backoffice:delete_vertex' map_id edge_id vertex.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+	    </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+<script>
+	$(document).ready( function () {
+		var table = $('#vertexs').DataTable({
+			"pageLength": 50,
+	    	"stateSave": false,
+	    	dom: 'Bfrtip',
+			buttons: [
+			  {
+				 extend: 'collection',
+				 text: 'Export',
+				 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ]
+			  }
+		   ],
+            stateSave: true,
+		} )
+
+		{% include 'backoffice/commons/data_table_base.html' with table_id='vertexs'%}
+    });
+</script>
+{% endblock %}

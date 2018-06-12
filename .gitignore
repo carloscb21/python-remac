@@ -1,0 +1,8 @@
+.idea
+*.pyc
+.project
+.settings
+venv
+media
+remac_portal/models/migrations/*
+!remac_portal/models/migrations/__init__.py

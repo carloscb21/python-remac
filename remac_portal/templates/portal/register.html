@@ -1,0 +1,21 @@
+{% extends 'portal/commons/base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="container">
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            Username: {{ form.username }} <br> <br>
+            First_name: {{ form.first_name }}<br><br>
+            Last_name: {{ form.last_name }}<br><br>
+            Email: {{ form.email }}<br><br>
+            Password1: {{ form.password1 }}<br><br>
+            Password2: {{ form.password2 }}<br><br>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

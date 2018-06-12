@@ -1,0 +1,14 @@
+{% extends 'portal/commons/base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="container">
+    <h1>Logged out</h1>
+    <p>
+        You have logged out!
+    </p>
+
+    <a class="btn btn-primary" href="{% url 'user:login' %}">Logging</a>
+</div>
+{% endblock %}

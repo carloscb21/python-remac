@@ -1,0 +1,85 @@
+{% extends 'backoffice/commons/base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block title %}Map List{% endblock %}
+
+{% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-html5-1.2.4/datatables.min.css"/>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.13/b-1.2.4/b-html5-1.2.4/datatables.min.js"></script>
+
+{% endblock %}
+<style>
+    @media (min-width: 1201px){
+    }
+</style>
+{% block content%}
+
+	<div>
+		<legend>List Map</legend>
+        <div>
+            <table id='vertexs'>
+                <thead>
+                    <tr>
+                        <th>Is active?</th>
+                        <th>Name</th>
+                        <th>Numbers floor</th>
+                        <th>description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for map in maps %}
+                        <tr>
+                            <td>
+                                {{ map.is_active }}
+                            </td>
+
+                            <td>
+                                {{ map.name }}
+                            </td>
+
+                            <td>
+                                {{ map.numbers_floor }}
+                            </td>
+
+                            <td>
+                                {{ map.description }}
+                            </td>
+
+                            <td style="width:10%;">
+                                <a href="{% url 'backoffice:list_edge' map.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edges</i></a><br>
+                                <a href="{% url 'backoffice:edit_map' map.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edit</i></a><br>
+                                <a href="{% url 'backoffice:delete_map' map.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+	    </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+	$(document).ready( function () {
+		var table = $('#vertexs').DataTable({
+			"pageLength": 50,
+	    	"stateSave": false,
+	    	dom: 'Bfrtip',
+			buttons: [
+			  {
+				 extend: 'collection',
+				 text: 'Export',
+				 buttons: [ 'pdfHtml5', 'csvHtml5', 'copyHtml5', 'excelHtml5' ]
+			  }
+		   ],
+            stateSave: true,
+		} )
+
+		{% include 'backoffice/commons/data_table_base.html' with table_id='vertexs'%}
+    });
+</script>
+{% endblock %}
