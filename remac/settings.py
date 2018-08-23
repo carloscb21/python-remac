@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrapform',
     'remac_portal.models',
+    'rest_framework',
 ]
 
 # Debug Toolbar

@@ -16,7 +16,7 @@ NFCCHOICES = (
     ('No', 'No'),
 )
 
-
+"""
 class MapType(models.Model):
     name = models.CharField(max_length=60)
     description = models.CharField(max_length=200)
@@ -24,6 +24,7 @@ class MapType(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+"""
 
 
 class Map(models.Model):
@@ -31,6 +32,7 @@ class Map(models.Model):
     name = models.CharField(max_length=200, unique=True)
     numbers_floor = models.IntegerField(default=0)
     description = models.TextField(blank=True)
+    building = models.CharField(max_length=60, choices=BUILDINGCHOICES, default='OTHERS')
 
     def __unicode__(self):
         return u'%s' % self.name

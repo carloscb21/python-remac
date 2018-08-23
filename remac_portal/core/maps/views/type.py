@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+
+"""
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -95,3 +98,4 @@ class MapTypeDeleteView(View):
 
         except MapType.DoesNotExist:
             raise Http404
+"""

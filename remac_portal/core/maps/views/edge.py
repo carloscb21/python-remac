@@ -70,6 +70,7 @@ class EdgeEditView(View):
             return render(request, 'edge/edge_create.html', context={
                 'edge_form': edge_form,
                 'edge': edge.id,
+                'map_id': map_id,
             })
 
         except Edge.DoesNotExist:

@@ -18,17 +18,17 @@ from django.conf.urls import url
 
 from remac_portal.core.maps.views.edge import EdgeListView, EdgeCreateView, EdgeEditView, EdgeDeleteView
 from remac_portal.core.maps.views.maps import MapsView, MapListView, MapCreateView, MapEditView, MapDeleteView
-from remac_portal.core.maps.views.type import MapTypeListView, MapTypeDeleteView, MapTypeCreateView, MapTypeEditView
+#from remac_portal.core.maps.views.type import MapTypeListView, MapTypeDeleteView, MapTypeCreateView, MapTypeEditView
 from remac_portal.core.maps.views.vertex import VertexCreateView, VertexListView, VertexEditView, VertexDeleteView
 
 
 urlpatterns = [
     url(r'^view-maps$', MapsView.as_view(), name='view_maps'),
     
-    url(r'^view-maps/map-type/list', MapTypeListView.as_view(), name='list_map_type'),
-    url(r'^view-maps/map-type/create$', MapTypeCreateView.as_view(), name='create_map_type'),
-    url(r'^view-maps/map-type/(?P<map_type_id>[\w]+)/edit/$', MapTypeEditView.as_view(), name='edit_map_type'),
-    url(r'^view-maps/map-type/(?P<map_type_id>[\w]+)/delete/$', MapTypeDeleteView.as_view(), name='delete_map_type'),
+#    url(r'^view-maps/map-type/list', MapTypeListView.as_view(), name='list_map_type'),
+#    url(r'^view-maps/map-type/create$', MapTypeCreateView.as_view(), name='create_map_type'),
+#    url(r'^view-maps/map-type/(?P<map_type_id>[\w]+)/edit/$', MapTypeEditView.as_view(), name='edit_map_type'),
+#    url(r'^view-maps/map-type/(?P<map_type_id>[\w]+)/delete/$', MapTypeDeleteView.as_view(), name='delete_map_type'),
 
     url(r'^view-maps/map/list', MapListView.as_view(), name='list_map'),
     url(r'^view-maps/map/create$', MapCreateView.as_view(), name='create_map'),
