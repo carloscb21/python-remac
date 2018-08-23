@@ -38,22 +38,12 @@ class Map(models.Model):
         return u'%s' % self.name
 
 
-class Edge(models.Model):
-    name = models.CharField(max_length=200, blank=True, null=True)
-    number_floor = models.IntegerField(default=0)
-    weight = models.IntegerField(default=0)
-    map = models.ForeignKey(Map, on_delete=models.CASCADE)
-
-    def __unicode__(self):
-        return u'%s (%s %s)' % (self.map, self.name, self.weight)
-
-
 class Vertex(models.Model):
+    map = models.ForeignKey(Map, on_delete=models.CASCADE)
     is_origin_point = models.BooleanField(default=False)
     nfc_code = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     has_nfc = models.CharField(max_length=60, choices=NFCCHOICES, default='NO')
-    edge = models.ForeignKey(Edge, on_delete=models.CASCADE)
     point_x = models.IntegerField(default=0)
     point_y = models.IntegerField(default=0)
     point_z = models.IntegerField(default=0)
@@ -62,4 +52,12 @@ class Vertex(models.Model):
         return u'%s (%s %s %s)' % (self.name, self.point_x, self.point_y, self.point_z)
 
 
+class Edge(models.Model):
+    name = models.CharField(max_length=200, blank=True, null=True)
+    number_floor = models.IntegerField(default=0)
+    weight = models.IntegerField(default=0)
+    vertex_1 = models.ForeignKey(Vertex, on_delete=models.CASCADE, related_name='vertex_1')
+    vertex_2 = models.ForeignKey(Vertex, on_delete=models.CASCADE, related_name='vertex_2')
 
+    def __unicode__(self):
+        return u'%s (%s %s)' % (self.map, self.name, self.weight)
