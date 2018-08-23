@@ -18,14 +18,18 @@
 
 	<div>
         <div align="right">
-                <a style=".margin-left: 80%" href="{% url 'backoffice:create_edge' map_id %}" class="btn btn-info" style="" id="list_vertex">Create Edge<br></a>
+            <a href="{% url 'backoffice:list_vertex' map_id %}" class="btn btn-info" style="" id="list_vertex">List Vertex</a>
+            <a style=".margin-left: 80%" href="{% url 'backoffice:create_edge' map_id %}" class="btn btn-info" style="" id="list_vertex">Create Edge<br></a>
         </div>
+
 		<legend>List Edge</legend>
 
         <div>
             <table id='vertexs'>
                 <thead>
                     <tr>
+                        <th>Vertex 1</th>
+                        <th>Vertex 2</th>
                         <th>Name</th>
                         <th>Number Floor</th>
                         <th>Weight</th>
@@ -35,6 +39,14 @@
                 <tbody>
                     {% for edge in edges %}
                         <tr>
+
+                            <td>
+                                {{ edge.vertex_1 }}
+                            </td>
+
+                            <td>
+                                {{ edge.vertex_2 }}
+                            </td>
 
                             <td>
                                 {{ edge.name }}
@@ -51,7 +63,7 @@
                             <td style="width:10%;">
                                 <a href="{% url 'backoffice:edit_edge' map_id edge.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edit</i></a><br>
                                 <a href="{% url 'backoffice:delete_edge' map_id edge.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></a><br>
-                                <a href="{% url 'backoffice:list_vertex' map_id edge.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Vertexs</i></a>
+                                {# <a href="{% url 'backoffice:list_vertex' map_id edge.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Vertexs</i></a> #}
                             </td>
                         </tr>
                     {% endfor %}

@@ -40,11 +40,10 @@ urlpatterns = [
     url(r'^view-maps/map/(?P<map_id>[\w]+)/edge/(?P<edge_id>[\w]+)/edit/$', EdgeEditView.as_view(), name='edit_edge'),
     url(r'^view-maps/map/(?P<map_id>[\w]+)/edge/(?P<edge_id>[\w]+)/delete/$', EdgeDeleteView.as_view(), name='delete_edge'),
 
-    url(r'^view-maps/map/(?P<map_id>[\w]+)/edge/(?P<edge_id>[\w]+)/vertex/list', VertexListView.as_view(), name='list_vertex'),
-    url(r'^view-maps/map/(?P<map_id>[\w]+)/edge/(?P<edge_id>[\w]+)/vertex/create$', VertexCreateView.as_view(), name='create_vertex'),
-    url(r'^view-maps/map/(?P<map_id>[\w]+)/edge/(?P<edge_id>[\w]+)/vertex/(?P<vertex_id>[\w]+)/edit/$',
-        VertexEditView.as_view(), name='edit_vertex'),
-    url(r'^view-maps/map/(?P<map_id>[\w]+)/edge/(?P<edge_id>[\w]+)/vertex/(?P<vertex_id>[\w]+)/delete/$',
+    url(r'^view-maps/map/(?P<map_id>[\w]+)/vertex/list', VertexListView.as_view(), name='list_vertex'),
+    url(r'^view-maps/map/(?P<map_id>[\w]+)/vertex/create$', VertexCreateView.as_view(), name='create_vertex'),
+    url(r'^view-maps/map/(?P<map_id>[\w]+)/vertex/(?P<vertex_id>[\w]+)/edit/$', VertexEditView.as_view(), name='edit_vertex'),
+    url(r'^view-maps/map/(?P<map_id>[\w]+)/vertex/(?P<vertex_id>[\w]+)/delete/$',
         VertexDeleteView.as_view(), name='delete_vertex'),
 
 

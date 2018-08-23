@@ -18,7 +18,8 @@
 
 	<div>
         <div align="right">
-                <a style=".margin-left: 80%" href="{% url 'backoffice:create_vertex' map_id edge_id %}" class="btn btn-info" style="" id="list_vertex">Create Vertex<br></a>
+            <a href="{% url 'backoffice:list_edge' map_id %}" class="btn btn-info" style="" id="list_vertex">List Edge</a>
+            <a style=".margin-left: 80%" href="{% url 'backoffice:create_vertex' map_id %}" class="btn btn-info" style="" id="list_vertex">Create Vertex<br></a>
         </div>
 		<legend>List Vertex</legend>
 
@@ -68,8 +69,8 @@
                             </td>
 
                             <td style="width:10%;">
-                                <a href="{% url 'backoffice:edit_vertex' map_id edge_id vertex.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edit</i></a><br>
-                                <a href="{% url 'backoffice:delete_vertex' map_id edge_id vertex.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></a>
+                                <a href="{% url 'backoffice:edit_vertex' map_id vertex.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edit</i></a><br>
+                                <a href="{% url 'backoffice:delete_vertex' map_id vertex.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></a>
                             </td>
                         </tr>
                     {% endfor %}

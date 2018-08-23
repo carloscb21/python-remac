@@ -13,7 +13,8 @@ class EdgeListView(View):
 
     def get(self, request, map_id):
         try:
-            edges = Edge.objects.all()
+            edges = Edge.objects.select_related('vertex_1', 'vertex_2', 'vertex_1__map', 'vertex_2__map').\
+                filter(vertex_1__map_id=map_id, vertex_2__map_id=map_id)
 
             return render(request, 'edge/edge_list.html', context={
                 'edges': edges,
@@ -47,13 +48,14 @@ class EdgeCreateView(View):
                     name=edge_form.cleaned_data['name'],
                     number_floor=edge_form.cleaned_data['number_floor'],
                     weight=edge_form.cleaned_data['weight'],
-
-                    map=map,
+                    vertex_1=edge_form.cleaned_data['vertex_1'],
+                    vertex_2=edge_form.cleaned_data['vertex_2'],
                 )
                 return redirect(reverse('backoffice:list_edge', args=(map.id,)))
 
             return render(request, 'edge/edge_create.html', context={
                 'edge_form': edge_form,
+                'map_id': map_id,
             })
         except Map.DoesNotExist:
             raise Http404
@@ -63,7 +65,8 @@ class EdgeEditView(View):
 
     def get(self, request, map_id, edge_id):
         try:
-            edge = Edge.objects.get(id=edge_id)
+            edge = Edge.objects.select_related('vertex_1', 'vertex_2', 'vertex_1__map', 'vertex_2__map').\
+                get(id=edge_id, vertex_1__map_id=map_id, vertex_2__map_id=map_id)
 
             edge_form = EdgeForm(instance=edge)
 
@@ -78,7 +81,8 @@ class EdgeEditView(View):
 
     def post(self, request, edge_id, map_id):
         try:
-            edge = Edge.objects.get(id=edge_id)
+            edge = Edge.objects.select_related('vertex_1', 'vertex_2', 'vertex_1__map', 'vertex_2__map').\
+                get(id=edge_id, vertex_1__map_id=map_id, vertex_2__map_id=map_id)
 
             edge_form = EdgeForm(request.POST or None, request.FILES or None, instance=edge)
 
@@ -93,6 +97,7 @@ class EdgeEditView(View):
             return render(request, 'edge/edge_create.html', context={
                 'edge_form': edge_form,
                 'edge': edge.id,
+                'map_id': map_id,
             })
 
         except Edge.DoesNotExist:
@@ -103,7 +108,7 @@ class EdgeDeleteView(View):
 
     def get(self, request, map_id, edge_id):
         try:
-            edge = Edge.objects.get(id=edge_id)
+            edge = Edge.objects.get(id=edge_id, vertex_1__map_id=map_id, vertex_2__map_id=map_id)
             edge.delete()
 
             return redirect(reverse('backoffice:list_edge', args=(map_id,)))

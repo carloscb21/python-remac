@@ -6,19 +6,18 @@ from django.urls import reverse
 from django.views import View
 
 from remac_portal.core.maps.form.vertex import VertexForm
-from remac_portal.models.maps import Vertex, Edge
+from remac_portal.models.maps import Vertex, Map
 
 
 class VertexListView(View):
 
-    def get(self, request, map_id, edge_id):
+    def get(self, request, map_id):
         try:
-            vertexs = Vertex.objects.all()
+            vertexs = Vertex.objects.filter(map_id=map_id)
 
             return render(request, 'vertex/vertex_list.html', context={
                 'vertexs': vertexs,
                 'map_id': map_id,
-                'edge_id': edge_id,
             })
         except Vertex.DoesNotExist:
             raise Http404
@@ -26,63 +25,64 @@ class VertexListView(View):
 
 class VertexCreateView(View):
 
-    def get(self, request, map_id, edge_id):
-        vertex_form = VertexForm()
-
-        return render(request, 'vertex/vertex_create.html', context={
-            'vertex_form': vertex_form,
-            'map_id': map_id,
-            'edge_id': edge_id,
-            })
-
-    def post(self, request, map_id, edge_id):
+    def get(self, request, map_id):
         try:
-            edge = Edge.objects.get(id=edge_id)
+            map = Map.objects.get(id=map_id)
+            vertex_form = VertexForm()
+
+            return render(request, 'vertex/vertex_create.html', context={
+                'vertex_form': vertex_form,
+                'map_id': map.id,
+                })
+        except Map.DoesNotExist:
+            raise Http404
+
+    def post(self, request, map_id):
+        try:
+            map = Map.objects.get(id=map_id)
             vertex_form = VertexForm(request.POST or None)
 
             if vertex_form.is_valid():
                 Vertex.objects.create(
+                    map=map,
                     is_origin_point=vertex_form.cleaned_data['is_origin_point'],
                     nfc_code=vertex_form.cleaned_data['nfc_code'],
                     name=vertex_form.cleaned_data['name'],
                     has_nfc=vertex_form.cleaned_data['has_nfc'],
-                    edge=edge,
 
                     point_x=vertex_form.cleaned_data['point_x'],
                     point_y=vertex_form.cleaned_data['point_y'],
                     point_z=vertex_form.cleaned_data['point_z'],
                 )
 
-                return redirect(reverse('backoffice:list_vertex', args=(map_id, edge_id)))
+                return redirect(reverse('backoffice:list_vertex', args=(map_id)))
 
             return render(request, 'vertex/vertex_create.html', context={
                 'vertex_form': vertex_form,
             })
-        except Edge.DoesNotExist:
+        except Map.DoesNotExist:
             raise Http404
 
 
 class VertexEditView(View):
 
-    def get(self, request, map_id, edge_id, vertex_id):
+    def get(self, request, map_id, vertex_id):
         try:
-            vertex = Vertex.objects.get(id=vertex_id)
-
+            vertex = Vertex.objects.get(id=vertex_id, map_id=map_id)
             vertex_form = VertexForm(instance=vertex)
 
             return render(request, 'vertex/vertex_create.html', context={
                 'vertex_form': vertex_form,
                 'vertex': vertex.id,
                 'map_id': map_id,
-                'edge_id': edge_id,
             })
 
         except Vertex.DoesNotExist:
             raise Http404
 
-    def post(self, request, map_id, edge_id, vertex_id):
+    def post(self, request, map_id, vertex_id):
         try:
-            vertex = Vertex.objects.get(id=vertex_id)
+            vertex = Vertex.objects.get(id=vertex_id, map_id=map_id)
 
             vertex_form = VertexForm(request.POST or None, request.FILES or None, instance=vertex)
 
@@ -98,7 +98,7 @@ class VertexEditView(View):
                 vertex.point_z = vertex_form.cleaned_data['point_z']
 
                 vertex.save()
-                return redirect(reverse('backoffice:list_vertex', args=(map_id, edge_id)))
+                return redirect(reverse('backoffice:list_vertex', args=(map_id)))
 
             return render(request, 'vertex/vertex_create.html', context={
                 'vertex_form': vertex_form,
@@ -111,12 +111,12 @@ class VertexEditView(View):
 
 class VertexDeleteView(View):
 
-    def get(self, request, map_id, edge_id, vertex_id):
+    def get(self, request, map_id, vertex_id):
         try:
-            vertex = Vertex.objects.get(id=vertex_id)
+            vertex = Vertex.objects.get(id=vertex_id, map_id=map_id)
             vertex.delete()
 
-            return redirect(reverse('backoffice:list_vertex', args=(map_id, edge_id)))
+            return redirect(reverse('backoffice:list_vertex', args=(map_id)))
 
         except Vertex.DoesNotExist:
             raise Http404

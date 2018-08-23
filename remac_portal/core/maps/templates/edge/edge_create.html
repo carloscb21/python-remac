@@ -46,8 +46,10 @@
         {% csrf_token %}
 
         <div class="remac_info-1">
-            {{ edge_form.name|bootstrap }}<br>
+            {{ edge_form.vertex_1|bootstrap }}<br>
+            {{ edge_form.vertex_2|bootstrap }}<br>
 
+            {{ edge_form.name|bootstrap }}<br>
             {{ edge_form.number_floor|bootstrap }}<br>
             {{ edge_form.weight|bootstrap }}<br>
 

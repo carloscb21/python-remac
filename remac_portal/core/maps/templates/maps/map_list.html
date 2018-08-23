@@ -18,6 +18,9 @@
 
 	<div>
 		<legend>List Map</legend>
+        <div align="right">
+            <a style=".margin-left: 80%" href="{% url 'backoffice:create_map' %}" class="btn btn-info" style="" id="list_vertex">Create Map</a>
+        </div><br>
         <div>
             <table id='vertexs'>
                 <thead>
@@ -50,7 +53,7 @@
                             </td>
 
                             <td style="width:10%;">
-                                <a href="{% url 'backoffice:list_edge' map.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edges</i></a><br>
+                                <a href="{% url 'backoffice:list_vertex' map.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Configurations</i></a><br>
                                 <a href="{% url 'backoffice:edit_map' map.id %}" ><i class="fa fa-pencil-square-o" >&nbsp;Edit</i></a><br>
                                 <a href="{% url 'backoffice:delete_map' map.id %}" ><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></a>
                             </td>
