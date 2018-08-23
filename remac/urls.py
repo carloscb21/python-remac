@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$',  login_redirect, name='login_redirect'),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('remac_portal.urls.portal', namespace='portal')),
+    url(r'^apis/', include('remac_portal.urls.apis', namespace='apis')),
     url(r'^backoffice/', include('remac_portal.urls.backoffice', namespace='backoffice')),
     url(r'^user/', include('remac_portal.urls.single_sign_on', namespace='user')),  # CAS Client #Checked
 

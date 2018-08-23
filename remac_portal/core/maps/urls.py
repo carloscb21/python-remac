@@ -1,26 +1,9 @@
-"""Opinno Competitions URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-
 from django.conf.urls import url
 
 from remac_portal.core.maps.views.edge import EdgeListView, EdgeCreateView, EdgeEditView, EdgeDeleteView
 from remac_portal.core.maps.views.maps import MapsView, MapListView, MapCreateView, MapEditView, MapDeleteView
 #from remac_portal.core.maps.views.type import MapTypeListView, MapTypeDeleteView, MapTypeCreateView, MapTypeEditView
 from remac_portal.core.maps.views.vertex import VertexCreateView, VertexListView, VertexEditView, VertexDeleteView
-
 
 urlpatterns = [
     url(r'^view-maps$', MapsView.as_view(), name='view_maps'),
@@ -45,8 +28,6 @@ urlpatterns = [
     url(r'^view-maps/map/(?P<map_id>[\w]+)/vertex/(?P<vertex_id>[\w]+)/edit/$', VertexEditView.as_view(), name='edit_vertex'),
     url(r'^view-maps/map/(?P<map_id>[\w]+)/vertex/(?P<vertex_id>[\w]+)/delete/$',
         VertexDeleteView.as_view(), name='delete_vertex'),
-
-
 
 ]
 
